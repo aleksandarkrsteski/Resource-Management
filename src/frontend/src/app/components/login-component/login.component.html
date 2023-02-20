@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Login</div>
+        <div class="card-body">
+          <div>
+            <div class="form-group">
+              <label for="username">E-mail</label>
+              <input type="text" class="form-control" id="username" placeholder="Enter e-mail" [(ngModel)]="loginModel.username" (keydown.enter)="login()">
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" placeholder="Password" [(ngModel)]="loginModel.password" (keydown.enter)="login()">
+            </div>
+            <button type="submit" class="btn btn-primary w-100" (click)="login()">LOG IN</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

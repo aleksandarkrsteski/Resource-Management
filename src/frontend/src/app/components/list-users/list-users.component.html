@@ -1,0 +1,52 @@
+<div class="col-md-12 mt-5">
+  <div class="d-flex justify-content-between mb-3">
+    <h2>All users</h2>
+  </div>
+  <div class="d-flex flex-column">
+    <div class="w-100 d-flex justify-content-end mb-3">
+      <button pButton pRipple type="button" label="Register user" class="p-button-success"
+              (click)="registerUserForm()"></button>
+    </div>
+    <div>
+      <p-table #dt [value]="users" [paginator]="true"
+               [rows]="10" responsiveLayout="scroll"
+               [scrollable]="true" [globalFilterFields]="['username', 'email', 'role']" [rowHover]="true" dataKey="id"
+               scrollHeight="flex">
+        <ng-template pTemplate="caption">
+          <div class="d-flex justify-content-between align-items-center">
+            <span></span>
+            <div class="d-flex justify-content-end">
+              <span class="p-input-icon-left ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text" (input)="dt.filterGlobal($event.target['value'], 'contains')"
+                         placeholder="Search"/>
+              </span>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+          <tr>
+            <td class="ellipsis" title="{{user.name}}">{{user.username}}</td>
+            <td class="ellipsis" title="{{user.email}}">{{user.email}}</td>
+            <td class="ellipsis" title="{{user.role}}">{{user.role | uppercase}}</td>
+            <td>
+              <button pButton pRipple icon="pi pi-user-edit" class="p-button-rounded p-button-text"
+                      (click)="editUser(user);"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"
+                      (click)="deleteUser(user);"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>

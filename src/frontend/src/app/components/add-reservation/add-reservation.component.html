@@ -1,0 +1,23 @@
+<div class="d-flex justify-content-center text-center align-items-center" style="width: 68%;
+    position: absolute;
+    height: 115px;">
+  <p-progressSpinner *ngIf="spinner" class="relative-ps"></p-progressSpinner>
+</div>
+<div>
+  <div class="mb-3">
+    <label for="start-time" class="w-100">Start Time</label>
+    <p-calendar class="w-100" [(ngModel)]="startTime" [showTime]="true" inputId="time" id="start-time" required></p-calendar>
+  </div>
+  <div class="mb-3">
+    <label for="end-time" class="w-100">End Time</label>
+    <p-calendar class="w-100" [(ngModel)]="endTime" [showTime]="true" inputId="time" id="end-time" required></p-calendar>
+  </div>
+  <div class="mb-3">
+    <label for="quantity" class="w-100">Quantity</label>
+    <input id="quantity" class="w-100" type="number" pInputText [(ngModel)]="quantity" required/>
+  </div>
+  <div class="d-flex justify-content-between w-100 flex-row">
+    <button type="button" class="btn btn-primary" (click)="reserve()" [disabled]="!endTime || !startTime || !quantity || !available">Reserve</button>
+    <button type="button" class="btn btn-light" (click)="testAvailability()" [disabled]="!endTime || !startTime || !quantity">Test availability</button>
+  </div>
+</div>

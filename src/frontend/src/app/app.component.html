@@ -1,0 +1,19 @@
+<mat-toolbar class="header">
+  <span class="logo">
+    <i class="fa fa-gears me-3"></i>
+    Resource Management System</span>
+  <nav *ngIf="isLoggedin">
+    <ul>
+      <li><a routerLink="/home" routerLinkActive="active-link">Home</a></li>
+      <li><a routerLink="/users" routerLinkActive="active-link" *ngIf="user.role === 'ADMIN'">Users</a></li>
+      <li><a routerLink="/reservations" routerLinkActive="active-link" *ngIf="user.role === 'ADMIN'">Reservations</a></li>
+      <li><a routerLink="/my-reservations" routerLinkActive="active-link" *ngIf="user.role === 'USER'">My reservations</a></li>
+      <li><a style="cursor: pointer" (click)="logout()">Logout</a></li>
+      <li><i class="fa fa-user-circle ms-3" style="font-size: 30px" pTooltip="{{user.role | titlecase}}: {{user.email}}" tooltipPosition="bottom"></i></li>
+    </ul>
+  </nav>
+</mat-toolbar>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+<p-toast position="bottom-center" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-toast>

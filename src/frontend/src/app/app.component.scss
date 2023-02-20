@@ -1,0 +1,42 @@
+.header {
+  background-color: #24292e;
+  color: #fff;
+}
+
+.logo {
+  font-size: 1em;
+  font-weight: bold;
+  margin-right: auto;
+}
+
+nav {
+  ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin: 0;
+      padding: 0;
+      color: white;
+
+      a {
+        display: block;
+        padding: 0.5em;
+        text-decoration: none;
+        color: white;
+
+        &.active-link {
+          border-bottom: 3px solid #fff;
+        }
+
+        &:hover {
+          background-color: #3f4448;
+        }
+      }
+    }
+  }
+}

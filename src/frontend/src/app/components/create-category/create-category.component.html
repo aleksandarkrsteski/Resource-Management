@@ -1,0 +1,29 @@
+<div class="content">
+  <div class="mb-3">
+    <label for="name" class="w-100">Name</label>
+    <input class="w-100" id="name" type="text" pInputText [(ngModel)]="categoryCreationModel.name" #catName=ngModel required/>
+  </div>
+  <div class="mb-3">
+    <label for="description" class="w-100">Description</label>
+    <textarea pInputTextarea class="w-100" id="description" [(ngModel)]="categoryCreationModel.description" [autoResize]="true"></textarea>
+  </div>
+  <div class="mb-3">
+    <label for="properties" class="w-100">Properties</label>
+    <div class="d-flex justify-content-between">
+      <div style="width: 65%">
+        <input style="width: 100%" id="properties" type="text" pInputText [(ngModel)]="currentProperty" (keydown.enter)="addProperty()"/>
+      </div>
+      <button pButton pRipple type="button" label="Add property" class="p-button-success ms-2" (click)="addProperty()"></button>
+    </div>
+    <div>
+      <div class="w-100 fw-bold mt-2 d-flex justify-content-start" *ngIf="getProperties().length > 0">
+        <span>Properties:</span>
+        <i class="pi pi-exclamation-circle float-end info" pTooltip="Click on the property name to delete it. Note: Removing properties of the parent category is not recommended!"></i>
+      </div>
+      <span *ngFor="let a of getProperties(); let i = index">
+        <span (click)="deleteProperty(a)" style="cursor: pointer">{{a}}</span><i *ngIf="i + 1 !== getProperties().length">, </i>
+      </span>
+    </div>
+  </div>
+  <button type="button" class="btn btn-primary" (click)="createCategory()" [disabled]="getProperties().length === 0 || catName.errors">Create</button>
+</div>

@@ -1,0 +1,7 @@
+<div class="d-flex justify-content-center align-items-center" style="height: 650px;"  *ngIf="spinner">
+  <p-progressSpinner></p-progressSpinner>
+</div>
+<div *ngIf="showCalendar">
+  <full-calendar [options]="calendarOptions"></full-calendar>
+  <button *ngIf="user.role === 'USER'" pButton pRipple type="button" label="Schedule resource" class="p-button-success mt-5" style="width: 100%" (click)="openDialog()"></button>
+</div>

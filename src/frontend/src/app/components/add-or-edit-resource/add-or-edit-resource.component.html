@@ -1,0 +1,37 @@
+<div class="content">
+  <div class="d-flex flex-row w-100 justify-content-between">
+    <div class="mb-3 w-50">
+      <label for="name">Name</label>
+      <input id="name" type="text" pInputText [(ngModel)]="resourceCreationModel.name" #resName=ngModel required [disabled]="formDisabled"/>
+    </div>
+    <div class="mb-3 w-50">
+      <label for="quantity">Quantity</label>
+      <input id="quantity" type="number" pInputText [(ngModel)]="resourceCreationModel.quantity"  #quantity=ngModel required [disabled]="formDisabled"/>
+    </div>
+  </div>
+  <label for="properties">Properties</label>
+  <div class="properties-container p-3 mb-3" id="properties">
+    <div *ngFor="let propertyName of getProperties()">
+      <div class="mb-3">
+        <label for="{{propertyName}}">{{propertyName | titlecase}}</label>
+        <input pInputText type="text" class="w-100" id="{{propertyName}}" [(ngModel)]="properties[propertyName]"
+               name="{{propertyName}}" [disabled]="formDisabled">
+      </div>
+    </div>
+  </div>
+  <label *ngIf="update" for="category">Category</label>
+  <div *ngIf="update" class="mb-3" id="category">
+    <p-dropdown class="me-3" placeholder="Change the resource category"
+               [options]="availableCategories" [(ngModel)]="resourceCreationModel.category_id"
+                optionLabel="name" optionValue="id" styleClass="cat-dropdown" [disabled]="formDisabled"></p-dropdown>
+    <button pButton pRipple type="button" label="Load all available categories"
+            class="p-button-secondary p-button-text w-100 text-start ps-1" (click)="loadAllLeafCategories()" *ngIf="!formDisabled"></button>
+  </div>
+  <div *ngIf="!formDisabled">
+    <button *ngIf="!update" type="button" class="btn btn-primary" (click)="createResource()" [disabled]="resName.errors || quantity.errors">Create</button>
+    <div class="d-flex flex-row justify-content-between">
+      <button *ngIf="update" type="button" class="btn btn-danger" (click)="deleteResource()">Delete</button>
+      <button *ngIf="update" type="button" class="btn btn-primary" (click)="updateResource()" [disabled]="resName.errors || quantity.errors">Update</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<div class="row mt-5" *ngIf="categoryList.length === 0 && !loading; else content">
+  <div class="col-md-12 mt-5">
+    <div class="d-flex justify-content-center align-items-center flex-column" *ngIf="user.role === 'ADMIN'">
+      <i class="pi pi-box add mb-4"></i>
+      <button pButton pRipple type="button" label="Create your first category" class="p-button-success wider-btn"
+              (click)="getDetailsAndOpenAddCategoryDialog()"></button>
+    </div>
+    <div class="d-flex justify-content-center align-items-center flex-column" *ngIf="user.role === 'USER'">
+      <i class="fa fa-exclamation-circle add mb-4"></i>
+      <span class="usr-msg">We are currently in the process of configuring our system. Please check back later to access our resources.</span>
+    </div>
+  </div>
+</div>
+<ng-template #content>
+  <div class="col-md-12 mt-5">
+    <div class="d-flex justify-content-between mb-3">
+      <h2>Available Resources</h2>
+    </div>
+    <div class="d-flex justify-content-between">
+      <div class="w-25" *ngIf="items.length > 0">
+        <p-slideMenu [model]="items" [viewportHeight]="750"></p-slideMenu>
+      </div>
+      <div class="w-75">
+        <div class="w-100 d-flex justify-content-end mb-3">
+          <p-dropdown placeholder="Filter by subcategory" [showClear]="true" scrollHeight="flex"
+                      (onChange)="selectLeafCategory($event)" [options]="currentLeafCategories"
+                      [(ngModel)]="selectedLeafCategory" optionLabel="name" optionValue="id"></p-dropdown>
+          <button pButton pRipple type="button" label="Create category" class="p-button-success ms-3" *ngIf="user.role === 'ADMIN'"
+                  (click)="getDetailsAndOpenAddCategoryDialog()"></button>
+        </div>
+        <p-table #dt [value]="filteredCurrentResources" [tableStyle]="{'min-width': '900px'}" [paginator]="true"
+                 [rows]="7" responsiveLayout="scroll"
+                 [scrollable]="true" [globalFilterFields]="['name']" [rowHover]="true" dataKey="id"
+                 scrollHeight="flex">
+          <ng-template pTemplate="caption">
+            <div class="d-flex justify-content-between align-items-center">
+              <span>{{getResourceCategoryName(this.currentParent)}}</span>
+              <div class="d-flex justify-content-end">
+              <span class="p-input-icon-left ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text" (input)="dt.filterGlobal($event.target['value'], 'contains')"
+                         placeholder="Search by resource name"/>
+              </span>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="ellipsis" style="width:150px">Name</th>
+              <th class="ellipsis" style="width:150px">Category</th>
+              <th class="ellipsis" style="width:150px">Quantity</th>
+              <th class="ellipsis" style="width:150px" *ngFor="let property of currentParentProperties | keyvalue" title="{{property.key | titlecase}}">
+                {{property.key | titlecase}}
+              </th>
+              <th style="width:80px">Details</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-resource>
+            <tr (click)="openDialog(resource.id)" style="cursor: pointer">
+              <td class="ellipsis" style="width:150px" title="{{resource.name}}">{{resource.name}}</td>
+              <td class="ellipsis" style="width:150px" title="{{getResourceCategoryName(resource.category_id)}}">{{getResourceCategoryName(resource.category_id)}}</td>
+              <td class="ellipsis" style="width:150px" title="{{resource.quantity}}">{{resource.quantity}}</td>
+              <td class="ellipsis" style="width:150px" title="{{resource.properties[property.key]}}" *ngFor="let property of currentParentProperties | keyvalue">
+                {{resource.properties[property.key]}}
+              </td>
+              <td style="width:80px;">
+                <button pButton pRipple icon="pi pi-file-o" class="p-button-rounded p-button-text"
+                        (click)="editResource(resource); $event.stopPropagation();"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,21 @@
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 150px;
+  min-width: 150px;
+  width: 150px;
+}
+
+.add {
+  font-size: 12rem;
+  color: #24292e;
+}
+
+.usr-msg {
+  font-family: Helvetica;
+}
+
+.wider-btn {
+  width: 500px;
+}

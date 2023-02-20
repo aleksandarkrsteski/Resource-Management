@@ -1,0 +1,22 @@
+<form #form="ngForm">
+  <div class="p-field mb-3">
+    <label for="username" class="w-100">Username</label>
+    <input id="username" class="w-100" type="text" name="username" [(ngModel)]="user.username" pInputText required />
+  </div>
+  <div class="p-field mb-3">
+    <label for="email" class="w-100">Email</label>
+    <input id="email" class="w-100" type="email" name="email" [(ngModel)]="user.email" pInputText required />
+  </div>
+  <div class="p-field mb-3" *ngIf="!update">
+    <label for="password" class="w-100">Password</label>
+    <input id="password" class="w-100" type="password" name="password" [feedback]="false" [(ngModel)]="user.password" pPassword required />
+  </div>
+  <div class="p-field mb-3">
+    <label for="role" class="w-100" >Role</label>
+    <p-dropdown placeholder="Select role" id="role" name="role" [(ngModel)]="user.role"  [options]="roles" [style]="{'width':'100%'}" required></p-dropdown>
+  </div>
+  <div class="p-field">
+    <button *ngIf="!update" pButton type="submit" label="Register" [disabled]="!form.valid" (click)="register()"></button>
+    <button  *ngIf="update" pButton type="submit" label="Update" [disabled]="!form.valid" (click)="updateUser()"></button>
+  </div>
+</form>
